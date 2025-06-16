@@ -28,7 +28,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
     lastName: clerkUser.lastName,
     email: clerkUser.primaryEmailAddress.emailAddress,
     imageUrl: clerkUser.imageUrl,
-  } as UserType;
+  };
 
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
@@ -44,7 +44,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
               "--sidebar-width-mobile": "20rem",
             } as Record<string, string>
           }
-          className="col-span-4"
+          className="col-span-5 lg:col-span-4"
         >
           <AppSidebar variant="floating" collapsible="icon" />
           <SidebarInset>
@@ -66,7 +66,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
           </SidebarInset>
         </SidebarProvider>
         <section className="p-2 h-full hidden lg:block">
-          <Profile user={user} />
+          <Profile />
         </section>
       </article>
     </ChatProvider>

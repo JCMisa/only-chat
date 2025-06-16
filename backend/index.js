@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import mongoose from "mongoose"
 import authRoutes from "./routes/AuthRoutes.js"
+import userRoutes from './routes/UserRoute.js';
 
 // --- 1. Load Environment Variables ---
 dotenv.config();
@@ -47,6 +48,7 @@ app.use(cookieParser());
 // You'll add your API routes here or import them from separate files
 
 app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from the Node.js Express Backend!");
