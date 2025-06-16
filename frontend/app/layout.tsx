@@ -26,25 +26,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ClerkProvider
-          appearance={{
-            baseTheme: dark,
-            layout: {
-              logoImageUrl: "/logo.svg",
-              socialButtonsVariant: "iconButton",
-            },
-            variables: {
-              colorText: "#E8E9E9",
-              colorPrimary: "#f43f5e",
-              colorBackground: "#131619",
-              colorInputBackground: "#19191c",
-              colorInputText: "#E8E9E9",
-            },
-          }}
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        layout: {
+          logoImageUrl: "/logo.svg",
+          socialButtonsVariant: "iconButton",
+        },
+        variables: {
+          colorText: "#E8E9E9",
+          colorPrimary: "#f43f5e",
+          colorBackground: "#131619",
+          colorInputBackground: "#19191c",
+          colorInputText: "#E8E9E9",
+        },
+      }}
+    >
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ThemeProvider
             attribute="class"
@@ -54,8 +54,8 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
-        </ClerkProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

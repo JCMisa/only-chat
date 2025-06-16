@@ -4,25 +4,30 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import React, { ReactNode, Suspense } from "react";
+import React, { ReactNode } from "react";
 import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
+import UserButtonClient from "@/components/custom/UserButtonClient";
 import ModeToggle from "@/components/ModeToggle";
 import { AppSidebar } from "./_components/AppSidebar";
 import Image from "next/image";
 import Profile from "./_components/Profile";
 import { ChatProvider } from "../context/ChatContext";
+import { redirect } from "next/navigation";
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const clerkUser = await currentUser();
 
+  if (!clerkUser) {
+    redirect("/sign-in");
+  }
+
   const user = {
-    userId: clerkUser?.userId,
-    firstName: clerkUser?.firstName,
-    lastName: clerkUser?.lastName,
-    email: clerkUser?.primaryEmailAddress?.emailAddress,
-    imageUrl: clerkUser?.imageUrl,
+    userId: clerkUser.userId,
+    firstName: clerkUser.firstName,
+    lastName: clerkUser.lastName,
+    email: clerkUser.primaryEmailAddress.emailAddress,
+    imageUrl: clerkUser.imageUrl,
   } as UserType;
 
   const cookieStore = await cookies();
@@ -49,17 +54,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <ModeToggle bg="transparent" />
               </div>
-              <div className="flex items-center gap-2">
-                <Suspense fallback={"loading..."}>
-                  <UserButton />
-                </Suspense>
-                <div className="flex flex-col">
-                  <p className="text-sm font-medium">
-                    {user.firstName} {user.lastName}
-                  </p>
-                  <p className="text-xs">{user.email}</p>
-                </div>
-              </div>
+              <UserButtonClient user={user} />
             </header>
             <main className="flex h-full w-full flex-col overflow-hidden p-5">
               <div className="flex h-full w-full flex-1 overflow-hidden">
